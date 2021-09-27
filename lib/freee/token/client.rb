@@ -12,7 +12,7 @@ module Freee
       AUTHORIZE_URL = 'https://accounts.secure.freee.co.jp/public_api/authorize'
       AUTHORIZE_URL.freeze
       # Freee Token URL
-      TOKEN_URL = '/oauth/token'
+      TOKEN_URL = 'https://accounts.secure.freee.co.jp/public_api/token'
       TOKEN_URL.freeze
 
       # A new instance of OAuth2 Client.
@@ -53,8 +53,8 @@ module Freee
         raise 'アクセストークンを返すためのリダイレクトURLが指定されていません' if redirect_uri.empty?
         begin
           @client.auth_code.get_token(code, redirect_uri: redirect_uri)
-        rescue OAuth2::Error
-          raise 'アクセストークンの取得に失敗しました。次の原因が考えられます。原因: 不明なクライアント、クライアント認証が含まれていない、認証コードが不正、認証コードが無効、リダイレクトURLが不正、別のクライアントに適用されている。'
+        rescue OAuth2::Error => e
+          raise "アクセストークンの取得に失敗しました。次の原因が考えられます。原因: 不明なクライアント、クライアント認証が含まれていない、認証コードが不正、認証コードが無効、リダイレクトURLが不正、別のクライアントに適用されている。(#{e.message})"
         end
       end
 
