@@ -64,8 +64,8 @@ module Freee
       # @param expires_at [Integer] アクセストークンの有効期限(UNIX TIME)
       # @return [Hash] アクセストークン
       def refresh_token(refresh_token)
-        raise 'アクセストークンが存在しません' if access_token.empty?
-        raise 'アクセストークンの有効期限が指定されていません' if expires_at.nil?
+        #raise 'アクセストークンが存在しません' if access_token.empty?
+        #raise 'アクセストークンの有効期限が指定されていません' if expires_at.nil?
         raise 'リフレッシュトークンが存在しません' if refresh_token.empty?
         #params = {
           #refresh_token: refresh_token,
