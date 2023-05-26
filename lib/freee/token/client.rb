@@ -63,7 +63,7 @@ module Freee
       # @param refresh_token [String] Refresh Token
       # @param expires_at [Integer] アクセストークンの有効期限(UNIX TIME)
       # @return [Hash] アクセストークン
-      def refresh_token(application_id, access_token, refresh_token, expires_at)
+      def refresh_token(application_id, secret, access_token, refresh_token, expires_at)
         raise 'アクセストークンが存在しません' if access_token.empty?
         raise 'アクセストークンの有効期限が指定されていません' if expires_at.nil?
         raise 'リフレッシュトークンが存在しません' if refresh_token.empty?
@@ -71,7 +71,7 @@ module Freee
           #refresh_token: refresh_token,
           #expires_at: expires_at
         #}
-        @access_token = OAuth2::AccessToken.new(access_token, refresh_token: refresh_token, expires_at: expires_at)
+        @access_token = OAuth2::AccessToken.new(application_id: application_id, secret: secret, access_token, refresh_token: refresh_token, expires_at: expires_at)
         begin
           @access_token.refresh! if @access_token.expired?
         rescue OAuth2::Error
