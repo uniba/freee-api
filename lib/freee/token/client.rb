@@ -71,7 +71,7 @@ module Freee
           refresh_token: refresh_token,
           expires_at: expires_at
         }
-        @access_token = OAuth2::AccessToken.new(@client, access_token, params)
+        @access_token = OAuth2::AccessToken.new(refresh_token, expires_at, access_token, params)
         begin
           @access_token.refresh! if @access_token.expired?
         rescue OAuth2::Error
