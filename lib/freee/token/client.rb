@@ -71,9 +71,11 @@ module Freee
           #refresh_token: refresh_token,
           #expires_at: expires_at
         #}
-        @access_token = OAuth2::AccessToken.from_hash(@client, refresh_token: refresh_token)
+        token = OAuth2::AccessToken.from_hash(@client, refresh_token: refresh_token)
+        new_token = token.refresh!
+        access_token = new_token.token
         begin
-          @access_token.refresh! if @access_token.expired?
+          return access_token
         rescue OAuth2::Error
           raise 'アクセストークンの取得に失敗しました。次の原因が考えられます。原因: 不明なクライアント、アクセストークンが不正、リフレッシュトークンが不正、有効期限が不正。'
         end
