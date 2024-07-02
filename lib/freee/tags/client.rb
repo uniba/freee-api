@@ -15,7 +15,7 @@ module Freee
       end
 
       # タグ一覧の取得
-      def get_tags(access_token, company_id)
+      def get_tags(access_token, params)
         raise 'アクセストークンが設定されていません' if access_token.empty?
         raise '事業所IDが設定されていません' unless params.key?(:company_id)
         @client.authorization :Bearer, access_token
