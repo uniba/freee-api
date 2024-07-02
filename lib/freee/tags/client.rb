@@ -1,7 +1,3 @@
-# frozen_string_literal: true
-
-require 'faraday'
-require 'json'
 
 module Freee
   module Api
