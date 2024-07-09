@@ -21,7 +21,7 @@ module Freee
         @client.authorization :Bearer, access_token
         response = @client.get do |req|
           req.url PATH
-          req.params = params
+          req.params = params.to_json
         end
         case response.status
         when 400
@@ -33,7 +33,7 @@ module Freee
       end
 
       # タグの作成
-      def create_deal(access_token, params)
+      def create_tag(access_token, params)
         raise 'アクセストークンが設定されていません' if access_token.empty?
         raise '収入・支出の発生日が指定されていません' unless params.key?(:issue_date)
         raise '収支区分が指定されていません' unless params.key?(:type)
