@@ -21,7 +21,7 @@ module Freee
         @client.authorization :Bearer, access_token
         response = @client.get do |req|
           req.url PATH
-          req.params = params.to_json
+          req.params = params
         end
         case response.status
         when 400
