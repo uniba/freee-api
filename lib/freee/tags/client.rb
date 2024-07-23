@@ -35,8 +35,6 @@ module Freee
       # タグの作成
       def create_tag(access_token, params)
         raise 'アクセストークンが設定されていません' if access_token.empty?
-        raise '収入・支出の発生日が指定されていません' unless params.key?(:issue_date)
-        raise '収支区分が指定されていません' unless params.key?(:type)
         raise '事業所IDが設定されていません' unless params.key?(:company_id)
         @client.authorization :Bearer, access_token
         response = @client.post do |req|
