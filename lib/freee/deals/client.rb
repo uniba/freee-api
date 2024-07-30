@@ -22,7 +22,7 @@ module Freee
       # @param params [Hash] 新規取引作成用のパラメータ
       # @return [Hash] 取引作成の結果
 
-      def get_tags(access_token, params)
+      def get_deals(access_token, params)
         raise 'アクセストークンが設定されていません' if access_token.empty?
         raise '事業所IDが設定されていません' unless params.key?(:company_id)
         @client.authorization :Bearer, access_token
