@@ -21,6 +21,23 @@ module Freee
       # @param access_token [String] アクセストークン
       # @param params [Hash] 新規取引作成用のパラメータ
       # @return [Hash] 取引作成の結果
+
+      def get_deals(access_token, params)
+        @client.authorization :Bearer, access_token
+        
+        response = @client.post do |req|
+          req.url PATH
+          req.body = params
+        end
+        case response.status
+        when 400
+          raise StandardError, response.body
+        when 401
+          raise 'Unauthorized'
+        end
+        response
+      end
+      
       def create_deal(access_token, params)
         raise 'アクセストークンが設定されていません' if access_token.empty?
         raise '収入・支出の発生日が指定されていません' unless params.key?(:issue_date)
