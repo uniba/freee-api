@@ -36,7 +36,7 @@ module Freee
         when 401
           raise 'Unauthorized'
         end
-        response
+        puts response
       end
       
       def create_deal(access_token, params)
