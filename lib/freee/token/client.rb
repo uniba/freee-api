@@ -63,17 +63,18 @@ module Freee
       # @param refresh_token [String] Refresh Token
       # @param expires_at [Integer] アクセストークンの有効期限(UNIX TIME)
       # @return [Hash] アクセストークン
-      def refresh_token(access_token, refresh_token, expires_at)
-        raise 'アクセストークンが存在しません' if access_token.empty?
-        raise 'アクセストークンの有効期限が指定されていません' if expires_at.nil?
+      def refresh_token(refresh_token)
+        #raise 'アクセストークンが存在しません' if access_token.empty?
+        #raise 'アクセストークンの有効期限が指定されていません' if expires_at.nil?
         raise 'リフレッシュトークンが存在しません' if refresh_token.empty?
-        params = {
-          refresh_token: refresh_token,
-          expires_at: expires_at
-        }
-        @access_token = OAuth2::AccessToken.new(@client, access_token, params)
+        #params = {
+          #refresh_token: refresh_token,
+          #expires_at: expires_at
+        #}
+        token = OAuth2::AccessToken.from_hash(@client, refresh_token: refresh_token)
+        new_token = token.refresh!
         begin
-          @access_token.refresh! if @access_token.expired?
+          return new_token
         rescue OAuth2::Error
           raise 'アクセストークンの取得に失敗しました。次の原因が考えられます。原因: 不明なクライアント、アクセストークンが不正、リフレッシュトークンが不正、有効期限が不正。'
         end
